@@ -4,12 +4,17 @@
     <div class="page-header d-print-none">
         <div class="container-xl">
             <div class="row g-2 align-items-center">
-                <div class="col d-flex">
-                    <h2 class="page-title text-capitalize flex-wrap flex-grow-1">
-                        daftar registrasi pasien hari ini
+                <div class="col" style="display: grid; grid-template-columns: 1fr auto auto auto;">
+                    <h2 class="page-title text-capitalize">
+                        Daftar Registrasi Pasien Hari Ini &nbsp;
+                        <span class="badge">{{ \Carbon\Carbon::now()->format('d F Y') }}</span>
                     </h2>
-                    <button id="registration-patient" class="btn btn-blue text-capitalize">download rekap pasien</button>
-                </div>
+                    <div class="d-flex align-items-center me-2">
+                        <span>Filter</span>
+                        <input type="date" class="form-control ms-2">
+                    </div>
+                    <button id="registration-patient" class="btn btn-blue text-capitalize">Lihat Pasien</button>
+                </div>                
             </div>
         </div>
     </div>
@@ -18,16 +23,30 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            function setTodayDate() {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                var formattedDate = yyyy + '-' + mm + '-' + dd;
+
+                $("input[type='date'].form-control.ms-2").val(formattedDate); 
+            }
+
+            setTodayDate();
             $('#registration-patient').click(function(e) {
                 e.preventDefault();
-                preview();
+                var date = $("input[type='date'].form-control.ms-2").val();
+                preview(date);
             });
         });
 
-        const preview = () => {
+        const preview = (date) => {
+            console.log(date)
             $.ajax({
                 url: '{{ route("generate-sheet") }}',
                 method: 'GET',
+                data: {date : date},
                 beforeSend: (request) => {
                     $.blockUI({
                         css: {
@@ -48,7 +67,6 @@
                 success: (response) => {
                     $.unblockUI();
                     var redirectUrl = response.url;
-                    console.log(redirectUrl);
                     var newTab = window.open(redirectUrl, '_blank');
                     newTab.focus();
                 },

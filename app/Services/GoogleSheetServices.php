@@ -10,8 +10,7 @@ use Google\Service\Sheets\ClearValuesRequest;
 class GoogleSheetServices {
 
     public $client, $service, $documentId, $range;
-    public function __construct()
-    {
+    public function __construct() {
         $this->client = $this->getClient();
         $this->service =  new Sheets($this->client);
         $this->documentId = '1NQsCklnI2eBaZgI7mEVhX0PSUOvxgNTIhcuINaaKD0M';
@@ -38,28 +37,31 @@ class GoogleSheetServices {
     }
 
     public function writeSheet($values, $startRow = 2) {
-        dd($values);
-        $this->documentId = '1NQsCklnI2eBaZgI7mEVhX0PSUOvxgNTIhcuINaaKD0M';
-    
         $clearRange = 'A'.$startRow.':Z';
         $clearBody = new ClearValuesRequest();
-        $this->service->spreadsheets_values->clear($this->documentId, $clearRange, $clearBody);
-        
-        $body = new ValueRange([
-            'values' => $values,
-        ]);
-        $params = [
-            'valueInputOption' => 'RAW',
-            'range' => 'A'.$startRow.':Z',
-        ];
-    
+
         try {
+            $this->service->spreadsheets_values->clear($this->documentId, $clearRange, $clearBody);
+            
+            $flattenedValues = [];
+            foreach ($values as $row) {
+                $flattenedValues[] = $row;
+            }
+            $body = new ValueRange([
+                'values' => $flattenedValues,
+            ]);
+            
+            $params = [
+                'valueInputOption' => 'RAW',
+                'range' => 'A'.$startRow.':Z',
+            ];
+    
             $this->service->spreadsheets_values->update($this->documentId, $this->range, $body, $params);
+            
             $redirectUrl = 'https://docs.google.com/spreadsheets/d/'.$this->documentId;
             return $redirectUrl;
         } catch (\Exception $e) {
             return 'Error: ' . $e->getMessage();
         }
     }
-    
 }

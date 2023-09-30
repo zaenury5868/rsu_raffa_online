@@ -14,10 +14,8 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::middleware(['minify'])->group(static function () {
-    Route::controller(PageController::class)->group(function() {
-        Route::get('/', 'doctor')->name('list.doctor');
-        Route::get('pendaftaran-pasien', 'patient_registration')->name('list.registration');
-        Route::get('/generate-sheet', 'generateSheet')->name('generate-sheet');
-    });
+Route::controller(PageController::class)->group(function() {
+    Route::get('/', 'doctor')->name('list.doctor');
+    Route::get('pendaftaran-pasien', 'patient_registration')->name('list.registration');
+    Route::get('/generate-sheet', 'generateSheet')->name('generate-sheet');
 });
