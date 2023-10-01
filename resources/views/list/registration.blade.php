@@ -23,7 +23,6 @@
 @push('scripts')
     <script>
         var lastClickedRow = null; 
-
         const highlightRow = (row) => {
             if (lastClickedRow !== null) {
                 lastClickedRow.style.backgroundColor = '';

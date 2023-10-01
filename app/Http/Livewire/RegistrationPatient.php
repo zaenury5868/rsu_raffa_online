@@ -66,8 +66,7 @@ class RegistrationPatient extends Component
                                         ->orWhere('pg.nama', 'like', '%' . $this->search . '%');
                             }
                         })
-                        ->orderBy('pd.tanggal', 'ASC')
-                        ->orderBy('pg.nama', 'ASC')
+                        ->orderBy('pd.tanggal', 'DESC')
                         ->get();
         $this->isLoading = false;
         return view('livewire.registration-patient', ['results' => $this->results]);

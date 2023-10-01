@@ -68,7 +68,7 @@ class PageController extends Controller
             $query->whereDate('pd.tanggal', DB::raw('CURDATE()'));
         }
         
-        $results = $query->orderBy('pg.nama', 'ASC')->get();
+        $results = $query->orderBy('pd.tanggal', 'DESC')->get();
     
         $data = [];
     

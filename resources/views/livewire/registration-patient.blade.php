@@ -2,6 +2,19 @@
     <div class="page-body">
         <div class="container-xl">
             <div class="row g-4">
+                <div class="col-md-12 col-lg-8">
+                    <div class="card bg-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Traffic summary</h3>
+                            <div id="chart-mentions" class="chart-lg"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <a href="https://github.com/sponsors/codecalm" class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./static/sponsor-banner-homepage.svg)" aria-label="Sponsor Tabler!">
+                        <div class="card-body"></div>
+                    </a>
+                </div>
                 <div class="col-12">
                     <div class="card bg-white">
                         <div class="card-body border-bottom py-3">
@@ -66,7 +79,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="16" class="text-center">Tidak ada data</td>
+                                                <td colspan="17" class="text-center">Tidak ada data</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
