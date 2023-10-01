@@ -39,8 +39,8 @@ class RegistrationPatient extends Component
                             'mp.nama AS DOKTER',
                             'pp.nomor AS SEP',
                             DB::raw("CASE
-                                WHEN pd.status = 0 THEN 'Dibatalkan'
-                                WHEN pd.status = 1 THEN 'Sedang dilayani'
+                                WHEN pd.status = 0 THEN 'Batal'
+                                WHEN pd.status = 1 THEN 'Aktif'
                                 WHEN pd.status = 2 THEN 'Selesai'
                                 ELSE ''
                             END AS STATUS"),

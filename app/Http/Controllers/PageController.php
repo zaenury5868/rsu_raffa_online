@@ -60,7 +60,7 @@ class PageController extends Controller
                 DB::raw("COALESCE(mr.deskripsi, '') AS RUANGAN"),
                 DB::raw("COALESCE(mp.nama, '') AS DOKTER"),
                 DB::raw("COALESCE(CASE WHEN pp.nomor = '' THEN '-' ELSE pp.nomor END, '') AS SEP"),
-                DB::raw("COALESCE(CASE WHEN pd.status = 0 THEN 'Dibatalkan' WHEN pd.status = 1 THEN 'Sedang dilayani' WHEN pd.status = 2 THEN 'Selesai' ELSE '' END, '') AS STATUS"),
+                DB::raw("COALESCE(CASE WHEN pd.status = 0 THEN 'Batal' WHEN pd.status = 1 THEN 'Aktif' WHEN pd.status = 2 THEN 'Selesai' ELSE '' END, '') AS STATUS"),
             ]);
         if (!empty($filterDate)) {
             $query->whereDate('pd.tanggal', $filterDate);
