@@ -10,7 +10,7 @@
                                     Daftar nama pasien yang telah didaftaran oleh customer services 
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Pencarian nama pasien:
+                                    Pencarian nama/nik pasien:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm" aria-label="Search invoice" wire:model.lazy="search">
                                     </div>
@@ -24,6 +24,7 @@
                                         <th class="w-1 text-center">No</th>
                                         <th class="w-1">NORM</th>
                                         <th class="w-1">PASIEN</th>
+                                        <th class="w-1">NIK</th>
                                         <th class="w-1">JENIS KELAMIN</th>
                                         <th class="w-1">TANGGAL LAHIR</th>
                                         <th class="w-1">UMUR</th>
@@ -45,6 +46,7 @@
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $item->NORM ?? '-' }}</td>
                                             <td>{{ $item->PASIEN ?? '-' }}</td>
+                                            <td>{{ $item->NIK ?? '-' }}</td>
                                             <td>{{ $item->JENIS_KELAMIN ?? '-' }}</td>
                                             <td>{{ $item->TANGGAL_LAHIR ?? '-' }}</td>
                                             <td>{{ $item->UMUR ?? '-' }}</td>

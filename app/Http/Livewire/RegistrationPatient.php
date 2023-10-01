@@ -20,9 +20,11 @@ class RegistrationPatient extends Component
                         ->leftJoin('pendaftaran.penjamin AS pp', 'pd.nomor', '=', 'pp.nopen')
                         ->leftJoin('master.dokter AS md', 'pt.dokter', '=', 'md.id')
                         ->leftJoin('master.pegawai AS mp', 'md.nip', '=', 'mp.nip')
+                        ->leftJoin('master.kartu_identitas_pasien AS mk', 'p.norm', '=', 'mk.norm')
                         ->select([
                             'p.norm AS NORM',
                             DB::raw("CONCAT(p.gelar_depan, ' ', p.nama) AS PASIEN"),
+                            'mk.nomor AS NIK',
                             DB::raw("CASE WHEN p.jenis_kelamin = 1 THEN 'Laki-laki' WHEN p.jenis_kelamin = 2 THEN 'Perempuan' ELSE '' END AS JENIS_KELAMIN"),
                             'p.tanggal_lahir AS TANGGAL_LAHIR',
                             DB::raw("CONCAT(YEAR(CURDATE()) - YEAR(p.tanggal_lahir) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(p.tanggal_lahir, '%m%d')), ' tahun') AS UMUR"),
@@ -56,7 +58,8 @@ class RegistrationPatient extends Component
                         ->whereDate('pd.tanggal', DB::raw('CURDATE()'))
                         ->where(function ($query) {
                             if (!empty($this->search)) {
-                                $query->where('p.nama', 'like', '%' . $this->search . '%');
+                                $query->where('p.nama', 'like', '%' . $this->search . '%')
+                                        ->orWhere('mk.nomor', 'like', '%' . $this->search . '%');
                             }
                         })
                         ->orderBy('pg.nama', 'ASC')
