@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>@yield('title')</title>
-    <link rel="shortcut icon" href="http://192.168.1.31/apps/SIMpel/classic/resources/images/26494.png">
+    <link rel="shortcut icon" href="/26494.png">
     <link href="/dist/css/tabler.css" rel="stylesheet" />
     <link href="/dist/css/tabler-flags.min.css" rel="stylesheet" />
     <link href="/dist/css/tabler-payments.min.css" rel="stylesheet" />
@@ -27,7 +27,6 @@
     @vite([])
 </head>
 <body>
-    <script src="/dist/js/demo-theme.min.js"></script>
     <div class="page">
         <header class="navbar navbar-expand-md d-print-none">
             <div class="container-xl">
@@ -36,7 +35,7 @@
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="." class=" text-decoration-none text-capitalize title">
-                        <img src="http://192.168.1.31/apps/SIMpel/classic/resources/images/26494.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                        <img src="/26494.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                         RSU raffa majenang
                     </a>
                 </h1>

@@ -22,6 +22,23 @@
 @endsection
 @push('scripts')
     <script>
+        var lastClickedRow = null; 
+
+        const highlightRow = (row) => {
+            if (lastClickedRow !== null) {
+                lastClickedRow.style.backgroundColor = '';
+            }
+
+            var itemId = row.getAttribute('data-id');
+
+            row.style.backgroundColor = "greenyellow";
+            lastClickedRow = row;
+
+            setTimeout(function () {
+                row.style.backgroundColor = '';
+            }, 3000);
+        }
+
         $(document).ready(function() {
             function setTodayDate() {
                 var today = new Date();

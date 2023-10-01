@@ -2571,7 +2571,7 @@ progress {
   animation: s4 1s infinite steps(10);
   position: absolute;
   top: 50%;
-  left: 40%;
+  left: 35%;
   transform: translate(-50%, -50%);
   z-index: 10;
   display: flex;

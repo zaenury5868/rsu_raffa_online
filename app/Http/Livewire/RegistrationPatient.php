@@ -9,8 +9,10 @@ class RegistrationPatient extends Component
 {
     public $results;
     public $search = '';
+    public $isLoading = true;
 
     public function render() {
+        $this->isLoading = true;
         $this->results = DB::table('master.pasien AS p')
                         ->leftJoin('pendaftaran.pendaftaran AS pd', 'p.norm', '=', 'pd.norm')
                         ->leftJoin('aplikasi.pengguna AS pg', 'pd.oleh', '=', 'pg.id')
@@ -26,7 +28,7 @@ class RegistrationPatient extends Component
                             DB::raw("CONCAT(p.gelar_depan, ' ', p.nama) AS PASIEN"),
                             'mk.nomor AS NIK',
                             DB::raw("CASE WHEN p.jenis_kelamin = 1 THEN 'Laki-laki' WHEN p.jenis_kelamin = 2 THEN 'Perempuan' ELSE '' END AS JENIS_KELAMIN"),
-                            'p.tanggal_lahir AS TANGGAL_LAHIR',
+                            DB::raw("DATE_FORMAT(p.tanggal_lahir, '%d %M %Y') AS TANGGAL_LAHIR"),
                             DB::raw("CONCAT(YEAR(CURDATE()) - YEAR(p.tanggal_lahir) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(p.tanggal_lahir, '%m%d')), ' tahun') AS UMUR"),
                             DB::raw("CONCAT(p.alamat, ' RT ', p.rt, ' RW ', p.rw) AS ALAMAT"),
                             'mw.deskripsi AS WILAYAH',
@@ -59,11 +61,15 @@ class RegistrationPatient extends Component
                         ->where(function ($query) {
                             if (!empty($this->search)) {
                                 $query->where('p.nama', 'like', '%' . $this->search . '%')
-                                        ->orWhere('mk.nomor', 'like', '%' . $this->search . '%');
+                                        ->orWhere('p.norm', 'like', '%' . $this->search . '%')
+                                        ->orWhere('mk.nomor', 'like', '%' . $this->search . '%')
+                                        ->orWhere('pg.nama', 'like', '%' . $this->search . '%');
                             }
                         })
+                        ->orderBy('pd.tanggal', 'ASC')
                         ->orderBy('pg.nama', 'ASC')
                         ->get();
+        $this->isLoading = false;
         return view('livewire.registration-patient', ['results' => $this->results]);
     }
 }
