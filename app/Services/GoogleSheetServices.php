@@ -36,6 +36,25 @@ class GoogleSheetServices {
         return $doc;
     }
 
+    public function renameSheet($newSheetName) {
+        $requests = [
+            new \Google\Service\Sheets\Request([
+                'updateSheetProperties' => [
+                    'properties' => [
+                        'title' => $newSheetName,
+                    ],
+                    'fields' => 'title',
+                ],
+            ]),
+        ];
+    
+        $batchUpdateRequest = new \Google\Service\Sheets\BatchUpdateSpreadsheetRequest([
+            'requests' => $requests,
+        ]);
+    
+        $this->service->spreadsheets->batchUpdate($this->documentId, $batchUpdateRequest);
+    }
+
     public function writeSheet($values, $startRow = 2) {
         $clearRange = 'A'.$startRow.':Z';
         $clearBody = new ClearValuesRequest();

@@ -93,6 +93,13 @@ class PageController extends Controller
         }
     
         $redirectUrl = $this->googleSheetService->writeSheet($data, 2);
+
+        if (!empty($filterDate)) {
+            $filterDate = date('j F Y', strtotime($filterDate));
+        }
+
+        $this->googleSheetService->renameSheet($filterDate);
+
         return response()->json(['url' => $redirectUrl], Response::HTTP_OK);
     }
 }
