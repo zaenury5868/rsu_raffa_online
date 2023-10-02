@@ -32,25 +32,25 @@
                         </div>
                         <div class="table-responsive">
                             @if (!$isLoading)
-                                <table class="table card-table table-vcenter text-nowrap datatable h6">
+                                <table class="table card-table table-bordered table-vcenter text-nowrap datatable h6">
                                     <thead>
                                         <tr>
                                             <th class="w-1 text-center">No</th>
                                             <th class="w-1">NORM</th>
-                                            <th class="w-1">PASIEN</th>
-                                            <th class="w-1">NIK</th>
+                                            <th class="w-1 text-center">PASIEN</th>
+                                            <th class="w-1 text-center">NIK</th>
                                             <th class="w-1">JENIS KELAMIN</th>
                                             <th class="w-1">TANGGAL LAHIR</th>
                                             <th class="w-1">UMUR</th>
-                                            <th class="w-1">ALAMAT</th>
+                                            <th class="w-1 text-center">ALAMAT</th>
                                             <th class="w-1">WILAYAH</th>
                                             <th class="w-1">TANGGAL DIDAFTARKAN</th>
-                                            <th class="w-1">OLEH</th>
+                                            <th class="w-1 text-center">OLEH</th>
                                             <th class="w-1">NOMOR PENDAFTARAN</th>
-                                            <th class="w-1">PENJAMIN</th>
-                                            <th class="w-1">TUJUAN UNIT</th>
-                                            <th class="w-1">DOKTER</th>
-                                            <th class="w-1">SEP</th>
+                                            <th class="w-1 text-center">PENJAMIN</th>
+                                            <th class="w-1 text-center">TUJUAN UNIT</th>
+                                            <th class="w-1 text-center">DOKTER</th>
+                                            <th class="w-1 text-center">SEP</th>
                                             <th class="w-1">STATUS PENDAFTARAN</th>
                                         </tr>
                                     </thead>
@@ -59,7 +59,7 @@
                                             <tr data-id="{{ $item->NORM }}" onclick="highlightRow(this)">
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $item->NORM ?? '-' }}</td>
-                                                <td>{{ $item->PASIEN ?? '-' }}</td>
+                                                <td>{!! $item->PASIEN ?? '<span class="badge bg-danger w-100">Kosong</span>' !!}</td>
                                                 <td>{{ $item->NIK ?? '-' }}</td>
                                                 <td>{{ $item->JENIS_KELAMIN ?? '-' }}</td>
                                                 <td>{{ $item->TANGGAL_LAHIR ?? '-' }}</td>
@@ -68,12 +68,12 @@
                                                 <td>{{ $item->WILAYAH ?? '-' }}</td>
                                                 <td>{{ $item->TANGGAL_DIDAFTARKAN ?? '-' }}</td>
                                                 <td>{{ $item->OLEH ?? '-' }}</td>
-                                                <td>{{ $item->NOPEN ?? '-' }}</td>
+                                                <td class="text-center">{{ $item->NOPEN ?? '-' }}</td>
                                                 <td>{{ $item->PENJAMIN ?? '-' }}</td>
                                                 <td>{{ $item->RUANGAN ?? '-' }}</td>
                                                 <td>{{ $item->DOKTER ?? '-' }}</td>
                                                 <td>{{ $item->SEP ?? '-' }}</td>
-                                                <td>
+                                                <td class="text-center">
                                                     <span class="badge {{ $item->STATUS == 'Dibatalkan' ? 'bg-danger' : ($item->STATUS == 'Sedang dilayani' ? 'bg-warning' : 'bg-success') }} me-1"></span>{{ $item->STATUS ?? '-' }}
                                                 </td>
                                             </tr>
