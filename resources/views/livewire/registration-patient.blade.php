@@ -11,10 +11,10 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="card card-sponsor" target="_blank" rel="noopener" aria-label="Pasien Terbanyak oleh CS">
+                    <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
                         <div class="d-flex flex-column justify-content-center align-items-center card-body">
-                            <h1 class="text-capitalize">pendaftaran pasien terbanyak</h1>
-                            <h2 class="text-success">{{ $bestName }}</h2>
+                            <h1 class="text-capitalize text-secondary">pendaftaran pasien terbanyak</h1>
+                            <h2 class="text-lime">{{ $bestName }}</h2>
                             <p>Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                                                 <td>{{ $item->DOKTER ?? '-' }}</td>
                                                 <td>{{ $item->SEP ?? '-' }}</td>
                                                 <td class="text-center">
-                                                    <span class="badge {{ $item->STATUS == 'Dibatalkan' ? 'bg-danger' : ($item->STATUS == 'Sedang dilayani' ? 'bg-warning' : 'bg-success') }} me-1"></span>{{ $item->STATUS ?? '-' }}
+                                                    <span class="badge {{ $item->STATUS == 'Batal' ? 'bg-danger' : ($item->STATUS == 'Aktif' ? 'bg-warning' : 'bg-success') }} me-1"></span>{{ $item->STATUS ?? '-' }}
                                                 </td>
                                             </tr>
                                         @empty
