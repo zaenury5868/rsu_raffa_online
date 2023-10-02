@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\DB;
 
 class RegistrationPatient extends Component
 {
-    public $results;
+    public $bestName;
+    public $countData;
     public $search = '';
     public $isLoading = true;
 
     public function render() {
         $this->isLoading = true;
-        $this->results = DB::table('master.pasien AS p')
+        $results = DB::table('master.pasien AS p')
                         ->leftJoin('pendaftaran.pendaftaran AS pd', 'p.norm', '=', 'pd.norm')
                         ->leftJoin('aplikasi.pengguna AS pg', 'pd.oleh', '=', 'pg.id')
                         ->leftJoin('master.wilayah AS mw', 'p.wilayah', '=', 'mw.id')
@@ -33,6 +34,7 @@ class RegistrationPatient extends Component
                             DB::raw("CONCAT(p.alamat, ' RT ', p.rt, ' RW ', p.rw) AS ALAMAT"),
                             'mw.deskripsi AS WILAYAH',
                             'pd.tanggal AS TANGGAL_DIDAFTARKAN',
+                            'pg.id AS ID',
                             'pg.nama AS OLEH',
                             'pd.nomor AS NOPEN',
                             'mr.deskripsi AS RUANGAN',
@@ -66,9 +68,12 @@ class RegistrationPatient extends Component
                                         ->orWhere('pg.nama', 'like', '%' . $this->search . '%');
                             }
                         })
-                        ->orderBy('pd.tanggal', 'DESC')
-                        ->get();
+                        ->orderBy('pd.tanggal', 'DESC');
+        $nameCounts = $results->pluck('OLEH')->countBy();
+        $this->bestName = $nameCounts->keys()->first();
+        $this->countData = $nameCounts->get($this->bestName);
         $this->isLoading = false;
-        return view('livewire.registration-patient', ['results' => $this->results]);
+
+        return view('livewire.registration-patient', ['results' => $results->get()]);
     }
 }
