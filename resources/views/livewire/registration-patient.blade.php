@@ -27,7 +27,7 @@
                                     Daftar nama pasien yang telah didaftaran oleh customer services 
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Pencarian nama/norm/nik pasien/nama cs:
+                                    Pencarian nama/norm/nik pasien/tujuan unit/nama cs:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm" aria-label="Search invoice" wire:model.lazy="search">
                                     </div>

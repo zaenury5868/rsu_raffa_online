@@ -31,7 +31,7 @@ class RegistrationPatient extends Component
                             DB::raw("CASE WHEN p.jenis_kelamin = 1 THEN 'Laki-laki' WHEN p.jenis_kelamin = 2 THEN 'Perempuan' ELSE '' END AS JENIS_KELAMIN"),
                             DB::raw("DATE_FORMAT(p.tanggal_lahir, '%d %M %Y') AS TANGGAL_LAHIR"),
                             DB::raw("CONCAT(YEAR(CURDATE()) - YEAR(p.tanggal_lahir) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(p.tanggal_lahir, '%m%d')), ' tahun') AS UMUR"),
-                            DB::raw("CONCAT(p.alamat, ' RT ', p.rt, ' RW ', p.rw) AS ALAMAT"),
+                            DB::raw("CONCAT(p.alamat, IFNULL(CONCAT(' RT ', p.rt), ''), IFNULL(CONCAT(' RW ', p.rw), '')) AS ALAMAT"),
                             'mw.deskripsi AS WILAYAH',
                             'pd.tanggal AS TANGGAL_DIDAFTARKAN',
                             'pg.id AS ID',
@@ -65,6 +65,7 @@ class RegistrationPatient extends Component
                                 $query->where('p.nama', 'like', '%' . $this->search . '%')
                                         ->orWhere('p.norm', 'like', '%' . $this->search . '%')
                                         ->orWhere('mk.nomor', 'like', '%' . $this->search . '%')
+                                        ->orWhere('mr.deskripsi', 'like', '%' . $this->search . '%')
                                         ->orWhere('pg.nama', 'like', '%' . $this->search . '%');
                             }
                         })
