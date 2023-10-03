@@ -7,5 +7,16 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
+        {
+            name: 'blade',
+            handleHotUpdate({file, server}) {
+                if (file.endsWith('.blade.php') && file.includes('livewire')) {
+                    server.ws.send({
+                        type: 'full-reload',
+                        path: '*',
+                    });
+                }
+            },
+        },
     ],
 });

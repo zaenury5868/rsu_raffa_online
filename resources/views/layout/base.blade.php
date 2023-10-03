@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8" />
@@ -7,11 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="/26494.png">
-    <link href="/dist/css/tabler.css" rel="stylesheet" />
-    <link href="/dist/css/tabler-flags.min.css" rel="stylesheet" />
-    <link href="/dist/css/tabler-payments.min.css" rel="stylesheet" />
-    <link href="/dist/css/tabler-vendors.min.css" rel="stylesheet" />
-    <link href="/dist/css/demo.min.css" rel="stylesheet" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -24,7 +19,7 @@
         }
     </style>
     @livewireStyles
-    @vite([])
+    @vite('resources/css/app.css')
 </head>
 <body>
     <div class="page">
@@ -120,8 +115,6 @@
     </div>
     <script src="/dist/js/jquery-3.6.0.min.js"></script>
     <script src="/dist/js/jquery.blockUI.min.js"></script>
-    <script src="/dist/js/tabler.min.js" defer></script>
-    <script src="/dist/js/demo.min.js" defer></script>
     @livewireScripts
     @stack('scripts')
 </body>
