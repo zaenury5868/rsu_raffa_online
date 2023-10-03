@@ -13,9 +13,9 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
                         <div class="d-flex flex-column justify-content-center align-items-center card-body">
-                            <h1 class="text-capitalize text-secondary">pendaftaran pasien terbanyak</h1>
+                            <h1 class="text-capitalize text-secondary text-center">pendaftaran pasien terbanyak</h1>
                             <h2 class="text-lime">{{ $bestName }}</h2>
-                            <p>Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
+                            <p class="text-center">Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                                                 <td>{{ $item->JENIS_KELAMIN ?? '-' }}</td>
                                                 <td>{{ $item->TANGGAL_LAHIR ?? '-' }}</td>
                                                 <td>{{ $item->UMUR ?? '-' }}</td>
-                                                <td>{{ $item->ALAMAT ?? '-' }}</td>
+                                                <td>{!! !is_null($item->ALAMAT) ? $item->ALAMAT : '<span class="badge bg-danger w-100">Kosong</span>' !!}</td>
                                                 <td>{{ $item->WILAYAH ?? '-' }}</td>
                                                 <td>{{ $item->TANGGAL_DIDAFTARKAN ?? '-' }}</td>
                                                 <td>{{ $item->OLEH ?? '-' }}</td>

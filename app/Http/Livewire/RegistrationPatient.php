@@ -69,11 +69,18 @@ class RegistrationPatient extends Component
                             }
                         })
                         ->orderBy('pd.tanggal', 'DESC');
-        $nameCounts = $results->pluck('OLEH')->countBy();
-        $this->bestName = $nameCounts->keys()->first();
-        $this->countData = $nameCounts->get($this->bestName);
-        $this->isLoading = false;
 
+        $nameCounts = $results->pluck('OLEH')->countBy();
+        $maxCount = $nameCounts->max();
+
+        $bestNames = $nameCounts->filter(function ($count) use ($maxCount) {
+            return $count == $maxCount;
+        });
+
+        $this->bestName = $bestNames->keys()->first();
+        $this->countData = $maxCount;
+
+        $this->isLoading = false;
         return view('livewire.registration-patient', ['results' => $results->get()]);
     }
 }
