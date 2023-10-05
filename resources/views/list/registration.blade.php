@@ -4,6 +4,12 @@
     <div class="page-header d-print-none">
         <div class="container-xl">
             <div class="row g-2 align-items-center">
+                <div class="card-body">
+                    <ol class="breadcrumb breadcrumb-arrows">
+                        <li class="breadcrumb-item text-capitalize"><a href="#">daftar dokter</a></li>
+                        <li class="breadcrumb-item text-capitalize disabled"><a href="#">pendaftaran pasien</a></li>
+                    </ol>
+                </div>
                 <div class="col" style="display: grid; grid-template-columns: 1fr auto auto auto;">
                     <h2 class="page-title text-capitalize">
                         Daftar Registrasi Pasien Hari Ini &nbsp;

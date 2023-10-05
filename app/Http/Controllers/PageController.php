@@ -23,6 +23,10 @@ class PageController extends Controller
         return \view('list.registration');
     }
 
+    public function visit_patient() {
+        return \view('list.visit');
+    }
+
     public function generateSheet(Request $request) {
         $filterDate = $request->input('date');
         $query = DB::table('master.pasien AS p')

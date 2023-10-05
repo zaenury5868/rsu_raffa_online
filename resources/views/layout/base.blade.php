@@ -104,6 +104,11 @@
                                     <span class="nav-link-title text-capitalize"> pendaftaran pasien </span>
                                 </a>
                             </li>
+                            <li class="nav-item {{ request()->routeIs('visit.patient') ? 'active' : '' }}">
+                                <a class="nav-link text-white" href="{{ route('visit.patient') }}">
+                                    <span class="nav-link-title text-capitalize"> kunjungan pasien </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -2,15 +2,25 @@
     <div class="page-body">
         <div class="container-xl">
             <div class="row g-4">
-                <div class="col-md-12 col-lg-9">
-                    <div class="card bg-white">
-                        <div class="card-body">
-                            <h3 class="card-title">Grafik Status Pendaftaran</h3>
-                            <div id="chart" class="chart-lg"></div>
+                <div class="col-md-8 col-lg-4">
+                    <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
+                        <div class="d-flex flex-column justify-content-center align-items-center card-body">
+                            <h1 class="text-capitalize text-secondary text-center">pasien terbanyak</h1>
+                            <h2 class="text-lime">{{ $bestName }}</h2>
+                            <p class="text-center">Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-md-8 col-lg-4">
+                    <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
+                        <div class="d-flex flex-column justify-content-center align-items-center card-body">
+                            <h1 class="text-capitalize text-secondary text-center">pasien terbanyak</h1>
+                            <h2 class="text-lime">{{ $bestName }}</h2>
+                            <p class="text-center">Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-lg-4">
                     <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
                         <div class="d-flex flex-column justify-content-center align-items-center card-body">
                             <h1 class="text-capitalize text-secondary text-center">pasien terbanyak</h1>
