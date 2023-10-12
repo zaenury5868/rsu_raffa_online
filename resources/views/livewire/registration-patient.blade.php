@@ -2,33 +2,16 @@
     <div class="page-body">
         <div class="container-xl">
             <div class="row g-4">
-                <div class="col-md-8 col-lg-4">
-                    <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
-                        <div class="d-flex flex-column justify-content-center align-items-center card-body">
-                            <h1 class="text-capitalize text-secondary text-center">pasien terbanyak</h1>
-                            <h2 class="text-lime">{{ $bestName }}</h2>
-                            <p class="text-center">Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
+                @foreach ($nameCounts as $name => $count)
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
+                            <div class="d-flex flex-column align-items-center justify-content-center align-items-center card-body">
+                                <h2 class="text-lime">{{ $name }}</h2>
+                                <p class="text-center">Jumlah total pendaftaran pasien ke unit pelayanan <strong>{{ $count }}</strong></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-8 col-lg-4">
-                    <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
-                        <div class="d-flex flex-column justify-content-center align-items-center card-body">
-                            <h1 class="text-capitalize text-secondary text-center">pasien terbanyak</h1>
-                            <h2 class="text-lime">{{ $bestName }}</h2>
-                            <p class="text-center">Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 col-lg-4">
-                    <div class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url(./cs.jpg)" aria-label="Pasien Terbanyak oleh CS">
-                        <div class="d-flex flex-column justify-content-center align-items-center card-body">
-                            <h1 class="text-capitalize text-secondary text-center">pasien terbanyak</h1>
-                            <h2 class="text-lime">{{ $bestName }}</h2>
-                            <p class="text-center">Jumlah total pasien yang didaftarkan <strong>{{ $countData }}</strong> pasien</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
                 <div class="col-12">
                     <div class="card bg-white">
                         <div class="card-body border-bottom py-3">
@@ -37,7 +20,7 @@
                                     Daftar nama pasien yang telah didaftaran oleh customer services 
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Pencarian nama/norm/nik pasien/tujuan unit/nama cs:
+                                    Pencarian nama pasien/norm/nik pasien/tujuan unit/nama cs:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm" aria-label="Search invoice" wire:model.lazy="search">
                                     </div>
