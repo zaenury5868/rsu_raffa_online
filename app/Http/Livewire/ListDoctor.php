@@ -7,13 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class ListDoctor extends Component
 {
-    public $results;
     public $isLoading = true;
 
     public function render() {
         try {
             $this->isLoading = true;
-            $this->results = DB::table('jadwal_dokter_hfis')
+            $doctors = DB::table('jadwal_dokter_hfis')
                         ->whereNotIn('kd_dokter', [386741, 32378, 456232, 449435, 222221, 553795])
                         ->whereIn('id', function ($query) {
                             $query->select(DB::raw('MAX(id)'))
@@ -36,6 +35,7 @@ class ListDoctor extends Component
                                 ELSE kd_poli
                             END AS NM_POLI"), 
                             DB::raw("CASE
+                                WHEN kd_dokter = 25836 THEN ', Sp.OG'
                                 WHEN kd_dokter = 433091 THEN ', Sp.B'
                                 WHEN kd_dokter = 437119 THEN ', Sp.PD., MMR'
                                 WHEN kd_dokter = 245014 THEN ', Sp.PD'
@@ -50,7 +50,34 @@ class ListDoctor extends Component
                                 ELSE kd_poli
                             END AS NM_Gelar"))
                         ->get();
-            return view('livewire.list-doctor', ['results' => $this->results]);
+
+                        $schedules = DB::table('jadwal_dokter_hfis')
+                        ->whereNotIn('kd_dokter', [386741, 32378, 456232, 449435, 222221, 553795])
+                        ->where(function ($query) {
+                            $query->where(function ($query) {
+                                $query->where('kd_dokter', 296359)
+                                    ->whereNotIn('nm_hari', ['SENIN', 'JUMAT']);
+                            })->orWhere(function ($query) {
+                                $query->where('kd_dokter', 25836)
+                                    ->whereNotIn('nm_hari', ['JUMAT']);
+                            });
+                        })
+                        ->orderBy('id', 'asc')
+                        ->select('jadwal_dokter_hfis.*')
+                        ->orWhere(function ($query) {
+                            $query->where('kd_dokter', 296359)
+                                ->whereNotIn('nm_hari', ['SENIN', 'JUMAT']);
+                        })
+                        ->orWhere(function ($query) {
+                            $query->where('kd_dokter', 25836)
+                                ->whereNotIn('nm_hari', ['JUMAT']);
+                        })
+                        ->orWhere(function ($query) {
+                            $query->where('kd_dokter', 217285)
+                                ->whereNotIn('nm_hari', ['SENIN']);
+                        })->get();
+
+            return view('livewire.list-doctor', ['doctors' => $doctors]);
         } catch (\Exception $e) {
             return response('Terjadi kesalahan: ' . $e->getMessage(), 500);
         } finally {

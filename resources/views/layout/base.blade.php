@@ -24,6 +24,9 @@
     @vite([])
 </head>
 <body>
+    @php
+        $ipComputer = request()->ip();
+    @endphp
     <div class="page">
         <header class="navbar navbar-expand-md d-print-none">
             <div class="container-xl">
@@ -97,20 +100,22 @@
                     <div class="container-xl">
                         <ul class="navbar-nav">
                             <li class="nav-item {{ request()->routeIs('list.doctor') ? 'active' : '' }}">
-                                <a class="nav-link text-white" href="{{ route('list.doctor') }}">
+                                <a class="nav-link text-white" href="{{ route('list.doctor', ['rsuraffa' => 'sub-simgos']) }}">
                                     <span class="nav-link-title text-capitalize"> daftar dokter </span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ request()->routeIs('list.registration') ? 'active' : '' }}">
-                                <a class="nav-link text-white" href="{{ route('list.registration') }}">
-                                    <span class="nav-link-title text-capitalize"> pendaftaran pasien </span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ request()->routeIs('visit.patient') ? 'active' : '' }}">
-                                <a class="nav-link text-white" href="{{ route('visit.patient') }}">
-                                    <span class="nav-link-title text-capitalize"> kunjungan pasien </span>
-                                </a>
-                            </li>
+                            @if ($ipComputer == '192.168.2.4' || $ipComputer == '192.168.2.44')
+                                <li class="nav-item {{ request()->routeIs('list.registration') ? 'active' : '' }}">
+                                    <a class="nav-link text-white" href="{{ route('list.registration', ['rsuraffa' => 'sub-simgos']) }}">
+                                        <span class="nav-link-title text-capitalize"> pendaftaran pasien </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ request()->routeIs('visit.patient') ? 'active' : '' }}">
+                                    <a class="nav-link text-white" href="{{ route('visit.patient', ['rsuraffa' => 'sub-simgos']) }}">
+                                        <span class="nav-link-title text-capitalize"> kunjungan pasien </span>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
