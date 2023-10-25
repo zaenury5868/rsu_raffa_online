@@ -4,7 +4,7 @@
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title text-capitalize">
-                        daftar dokter DPJP yang aktif
+                        daftar dokter poli yang aktif
                     </h2>
                 </div>
             </div>
