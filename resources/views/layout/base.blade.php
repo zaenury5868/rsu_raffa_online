@@ -24,6 +24,9 @@
     @vite([])
 </head>
 <body>
+    @php
+        $ipComputer = request()->ip();
+    @endphp
     <div class="page">
         <header class="navbar navbar-expand-md d-print-none">
             <div class="container-xl">
@@ -31,7 +34,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href="." class=" text-decoration-none text-capitalize title">
+                    <a href="javascript:;" class=" text-decoration-none text-capitalize title">
                         <img src="/26494.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                         RSU raffa majenang
                     </a>
@@ -54,7 +57,7 @@
                     </div>
                     <div class="d-flex gap-2">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                            <a href="javascript:;" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                                 <span class="bg-main avatar avatar-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ambulance" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -71,7 +74,7 @@
                             </a>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                            <a href="javascript:;" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                                 <span class="bg-main avatar avatar-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-calling" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -97,20 +100,22 @@
                     <div class="container-xl">
                         <ul class="navbar-nav">
                             <li class="nav-item {{ request()->routeIs('list.doctor') ? 'active' : '' }}">
-                                <a class="nav-link text-white" href="{{ route('list.doctor') }}">
+                                <a class="nav-link text-white" href="{{ route('list.doctor', ['rsuraffa' => 'sub-simgos']) }}">
                                     <span class="nav-link-title text-capitalize"> daftar dokter </span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ request()->routeIs('list.registration') ? 'active' : '' }}">
-                                <a class="nav-link text-white" href="{{ route('list.registration') }}">
-                                    <span class="nav-link-title text-capitalize"> pendaftaran pasien </span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ request()->routeIs('visit.patient') ? 'active' : '' }}">
-                                <a class="nav-link text-white" href="{{ route('visit.patient') }}">
-                                    <span class="nav-link-title text-capitalize"> kunjungan pasien </span>
-                                </a>
-                            </li>
+                            @if ($ipComputer == '192.168.2.4' || $ipComputer == '192.168.2.44')
+                                <li class="nav-item {{ request()->routeIs('list.registration') ? 'active' : '' }}">
+                                    <a class="nav-link text-white" href="{{ route('list.registration', ['rsuraffa' => 'sub-simgos']) }}">
+                                        <span class="nav-link-title text-capitalize"> pendaftaran pasien </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {{ request()->routeIs('visit.patient') ? 'active' : '' }}">
+                                    <a class="nav-link text-white" href="{{ route('visit.patient', ['rsuraffa' => 'sub-simgos']) }}">
+                                        <span class="nav-link-title text-capitalize"> kunjungan pasien </span>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

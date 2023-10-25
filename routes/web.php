@@ -15,7 +15,7 @@ use App\Http\Controllers\PageController;
 */
 
 Route::controller(PageController::class)->group(function() {
-    Route::get('/', 'doctor')->name('list.doctor');
+    Route::get('/daftar-dokter', 'doctor')->name('list.doctor');
     Route::get('pendaftaran-pasien', 'patient_registration')->name('list.registration');
     Route::get('kunjungan-pasien', 'visit_patient')->name('visit.patient');
     Route::get('/generate-sheet', 'generateSheet')->name('generate-sheet');

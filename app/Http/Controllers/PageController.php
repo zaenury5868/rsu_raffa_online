@@ -19,8 +19,9 @@ class PageController extends Controller
         return \view('list.doctor');
     }
 
-    public function patient_registration() {
-        return \view('list.registration');
+    public function patient_registration(Request $request) {
+        $ipComputer = $request->ip();
+        return \view('list.registration', \compact('ipComputer'));
     }
 
     public function visit_patient() {

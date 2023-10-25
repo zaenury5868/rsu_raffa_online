@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Log;
 use Livewire\Component;
 use App\Charts\bpjsChart;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RegistrationPatient extends Component
@@ -14,8 +15,9 @@ class RegistrationPatient extends Component
     public $search = '';
     public $isLoading = true;
 
-    public function render() {
+    public function render(Request $request) {
         try {
+            $ipComputer = $request->ip();
             $this->isLoading = true;
             $results = DB::table('master.pasien AS p')
                             ->leftJoin('pendaftaran.pendaftaran AS pd', 'p.norm', '=', 'pd.norm')
@@ -29,12 +31,12 @@ class RegistrationPatient extends Component
                             ->leftJoin('master.kartu_identitas_pasien AS mk', 'p.norm', '=', 'mk.norm')
                             ->select([
                                 'p.norm AS NORM',
-                                DB::raw("CONCAT(p.gelar_depan, ' ', p.nama) AS PASIEN"),
+                                DB::raw("CONCAT(IFNULL(CONCAT(p.gelar_depan), ''), ' ', p.nama) AS PASIEN"),
                                 'mk.nomor AS NIK',
                                 DB::raw("CASE WHEN p.jenis_kelamin = 1 THEN 'Laki-laki' WHEN p.jenis_kelamin = 2 THEN 'Perempuan' ELSE '' END AS JENIS_KELAMIN"),
                                 DB::raw("DATE_FORMAT(p.tanggal_lahir, '%d %M %Y') AS TANGGAL_LAHIR"),
                                 DB::raw("CONCAT(YEAR(CURDATE()) - YEAR(p.tanggal_lahir) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(p.tanggal_lahir, '%m%d')), ' tahun') AS UMUR"),
-                                DB::raw("CONCAT(p.alamat, IFNULL(CONCAT(' RT ', p.rt), ''), IFNULL(CONCAT(' RW ', p.rw), '')) AS ALAMAT"),
+                                DB::raw("CONCAT(IFNULL(CONCAT(p.alamat), ''), IFNULL(CONCAT(' RT ', p.rt), ''), IFNULL(CONCAT(' RW ', p.rw), '')) AS ALAMAT"),
                                 'mw.deskripsi AS WILAYAH',
                                 'pd.tanggal AS TANGGAL_DIDAFTARKAN',
                                 'pg.id AS ID',
@@ -86,7 +88,8 @@ class RegistrationPatient extends Component
 
             return view('livewire.registration-patient', [
                 'results' => $results->get(),
-                'nameCounts' => $nameCounts
+                'nameCounts' => $nameCounts,
+                'ipComputer' => $ipComputer
             ]);
         } catch (\Exception $e) {
             return response('Terjadi kesalahan: ' . $e->getMessage(), 500);
